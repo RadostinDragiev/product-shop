@@ -20,10 +20,10 @@ public class Product extends BaseEntity {
 
     private BigDecimal price;
 
-    @ManyToOne(targetEntity = Product.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = User.class, cascade = CascadeType.ALL)
     private User buyer;
 
-    @ManyToOne(targetEntity = Product.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = User.class, cascade = CascadeType.DETACH)
     private User seller;
 
     @ManyToMany(targetEntity = Category.class, cascade = CascadeType.ALL)

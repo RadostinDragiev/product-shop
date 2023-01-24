@@ -26,7 +26,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "seller")
     private Set<Product> productsSold;
 
-    @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "buyer")
     private Set<Product> productsBought;
 
     @OneToMany

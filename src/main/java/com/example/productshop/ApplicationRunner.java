@@ -32,8 +32,8 @@ public class ApplicationRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Seed data from files to DB
-        //fetchUsers();
-        //fetchCategories();
+        fetchUsers();
+        fetchCategories();
         fetchProducts();
 
     }
