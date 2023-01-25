@@ -9,4 +9,6 @@ import java.util.Set;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Set<User> findAllByProductsSoldNotNull();
+
+    Set<User> findAllByProductsSoldNotNullOrderByProductsSoldDescLastNameAsc();
 }

@@ -6,20 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryByProductsDto {
+public class ProductsSoldJsonDto {
     @Expose
-    private String category;
+    private int count;
 
     @Expose
-    private int productCount;
-
-    @Expose
-    private double averagePrice;
-
-    @Expose
-    private double totalRevenue;
+    private List<ProductJsonDto> products;
 }

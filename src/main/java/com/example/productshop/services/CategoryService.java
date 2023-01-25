@@ -1,6 +1,6 @@
 package com.example.productshop.services;
 
-import com.example.productshop.dtos.CategoryByProductsDto;
+import com.example.productshop.dtos.CategoryByProductsJsonDto;
 import com.example.productshop.dtos.CategoryRegistrationDto;
 import com.example.productshop.entities.Category;
 
@@ -11,5 +11,5 @@ public interface CategoryService {
 
     Category getRandomCategory();
 
-    Set<CategoryByProductsDto> getAllCategorySummary();
+    Set<CategoryByProductsJsonDto> getAllCategorySummary();
 }

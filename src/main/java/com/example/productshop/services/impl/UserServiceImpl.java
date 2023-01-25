@@ -1,7 +1,6 @@
 package com.example.productshop.services.impl;
 
-import com.example.productshop.dtos.UserRegisterDto;
-import com.example.productshop.dtos.UserWithSoldProductsDto;
+import com.example.productshop.dtos.*;
 import com.example.productshop.entities.User;
 import com.example.productshop.repositories.UserRepository;
 import com.example.productshop.services.UserService;
@@ -9,9 +8,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,5 +49,14 @@ public class UserServiceImpl implements UserService {
             result.add(map);
         });
         return result;
+    }
+
+    @Override
+    public UsersProductsJsonDto getAllUsersBySoldProducts() {
+        Set<User> allByProducts = this.userRepository.findAllByProductsSoldNotNullOrderByProductsSoldDescLastNameAsc();
+        UsersProductsJsonDto usersProductsJsonDto = new UsersProductsJsonDto();
+        usersProductsJsonDto.setUserCount(allByProducts.size());
+        usersProductsJsonDto.setUsers(Arrays.stream(this.modelMapper.map(allByProducts, UsersJsonDto[].class)).collect(Collectors.toList()));
+        return usersProductsJsonDto;
     }
 }

@@ -43,13 +43,27 @@ public class ApplicationRunner implements CommandLineRunner {
 
         //createFileWithUsersSoldProducts();
 
-        createFileWithCategoriesByCount();
+        //createFileWithCategoriesByCount();
+
+        createFileWithUsersAndProducts();
+    }
+
+    private void createFileWithUsersAndProducts() {
+        try {
+            UsersProductsJsonDto allUsersBySoldProducts = this.userService.getAllUsersBySoldProducts();
+            FileWriter fileWriter = new FileWriter("src/main/resources/outputs/users-and-products.json");
+            this.gson.toJson(allUsersBySoldProducts, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Found exception " + e.getMessage());
+        }
     }
 
     private void createFileWithCategoriesByCount() {
         try {
-            Set<CategoryByProductsDto> allCategorySummary = this.categoryService.getAllCategorySummary();
-            FileWriter fileWriter = new FileWriter("src/main/resources/outputs/categories-by-products.json.json");
+            Set<CategoryByProductsJsonDto> allCategorySummary = this.categoryService.getAllCategorySummary();
+            FileWriter fileWriter = new FileWriter("src/main/resources/outputs/categories-by-products.json");
             this.gson.toJson(allCategorySummary, fileWriter);
             fileWriter.flush();
             fileWriter.close();

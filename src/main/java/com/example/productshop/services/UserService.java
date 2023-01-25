@@ -2,6 +2,7 @@ package com.example.productshop.services;
 
 import com.example.productshop.dtos.UserRegisterDto;
 import com.example.productshop.dtos.UserWithSoldProductsDto;
+import com.example.productshop.dtos.UsersProductsJsonDto;
 import com.example.productshop.entities.User;
 
 import java.util.Set;
@@ -12,4 +13,6 @@ public interface UserService {
     User getRandomUser();
 
     Set<UserWithSoldProductsDto> getAllUsersWithSoldProducts();
+
+    UsersProductsJsonDto getAllUsersBySoldProducts();
 }

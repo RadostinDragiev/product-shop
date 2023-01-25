@@ -1,6 +1,6 @@
 package com.example.productshop.services.impl;
 
-import com.example.productshop.dtos.CategoryByProductsDto;
+import com.example.productshop.dtos.CategoryByProductsJsonDto;
 import com.example.productshop.dtos.CategoryRegistrationDto;
 import com.example.productshop.entities.Category;
 import com.example.productshop.repositories.CategoryRepository;
@@ -35,12 +35,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Set<CategoryByProductsDto> getAllCategorySummary() {
-        Set<CategoryByProductsDto> categoryByProductsDtos = new HashSet<>();
+    public Set<CategoryByProductsJsonDto> getAllCategorySummary() {
+        Set<CategoryByProductsJsonDto> categoryByProductsDtos = new HashSet<>();
         this.categoryRepository.getAllCategoryCountAndTheirRevenueInformation()
                         .forEach(category -> {
                             String[] categorySplit = category.split(",");
-                            categoryByProductsDtos.add(new CategoryByProductsDto(categorySplit[0],
+                            categoryByProductsDtos.add(new CategoryByProductsJsonDto(categorySplit[0],
                                     Integer.parseInt(categorySplit[1]),
                                     Double.parseDouble(categorySplit[2]),
                                     Double.parseDouble(categorySplit[3])));
