@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -20,6 +17,6 @@ import java.util.Set;
 public class Category extends BaseEntity {
     private String name;
 
-    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Product> products;
 }

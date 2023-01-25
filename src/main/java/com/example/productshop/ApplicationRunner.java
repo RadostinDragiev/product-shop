@@ -42,6 +42,20 @@ public class ApplicationRunner implements CommandLineRunner {
         //createFileWithAllProductsInRange();
 
         //createFileWithUsersSoldProducts();
+
+        createFileWithCategoriesByCount();
+    }
+
+    private void createFileWithCategoriesByCount() {
+        try {
+            Set<CategoryByProductsDto> allCategorySummary = this.categoryService.getAllCategorySummary();
+            FileWriter fileWriter = new FileWriter("src/main/resources/outputs/categories-by-products.json.json");
+            this.gson.toJson(allCategorySummary, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Found exception " + e.getMessage());
+        }
     }
 
     private void createFileWithUsersSoldProducts() {

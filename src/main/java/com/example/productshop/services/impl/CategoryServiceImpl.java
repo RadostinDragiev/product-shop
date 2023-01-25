@@ -1,5 +1,6 @@
 package com.example.productshop.services.impl;
 
+import com.example.productshop.dtos.CategoryByProductsDto;
 import com.example.productshop.dtos.CategoryRegistrationDto;
 import com.example.productshop.entities.Category;
 import com.example.productshop.repositories.CategoryRepository;
@@ -7,7 +8,9 @@ import com.example.productshop.services.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -29,5 +32,19 @@ public class CategoryServiceImpl implements CategoryService {
     public Category getRandomCategory() {
         int randomId = new Random().nextInt((int)this.categoryRepository.count()) + 1;
         return this.categoryRepository.findById((long) randomId).get();
+    }
+
+    @Override
+    public Set<CategoryByProductsDto> getAllCategorySummary() {
+        Set<CategoryByProductsDto> categoryByProductsDtos = new HashSet<>();
+        this.categoryRepository.getAllCategoryCountAndTheirRevenueInformation()
+                        .forEach(category -> {
+                            String[] categorySplit = category.split(",");
+                            categoryByProductsDtos.add(new CategoryByProductsDto(categorySplit[0],
+                                    Integer.parseInt(categorySplit[1]),
+                                    Double.parseDouble(categorySplit[2]),
+                                    Double.parseDouble(categorySplit[3])));
+                        });
+        return categoryByProductsDtos;
     }
 }
