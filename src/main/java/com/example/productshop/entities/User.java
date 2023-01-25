@@ -23,7 +23,7 @@ public class User extends BaseEntity {
 
     private int age;
 
-    @OneToMany(mappedBy = "seller")
+    @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER)
     private Set<Product> productsSold;
 
     @OneToMany(mappedBy = "buyer")

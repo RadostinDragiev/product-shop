@@ -12,7 +12,10 @@ import org.springframework.stereotype.Controller;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Set;
 
 @Controller
 public class ApplicationRunner implements CommandLineRunner {
@@ -32,10 +35,37 @@ public class ApplicationRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Seed data from files to DB
-        fetchUsers();
-        fetchCategories();
-        fetchProducts();
+        //fetchUsers();
+        //fetchCategories();
+        //fetchProducts();
 
+        //createFileWithAllProductsInRange();
+
+        //createFileWithUsersSoldProducts();
+    }
+
+    private void createFileWithUsersSoldProducts() {
+        try {
+            Set<UserWithSoldProductsDto> users = this.userService.getAllUsersWithSoldProducts();
+            FileWriter fileWriter = new FileWriter("src/main/resources/outputs/users-sold-products.json");
+            this.gson.toJson(users, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Found exception " + e.getMessage());
+        }
+    }
+
+    private void createFileWithAllProductsInRange() {
+        try {
+            Set<ProductInRangeDto> allProductsInRange = this.productService.getAllProductsInRange(500, 1000);
+            FileWriter fileWriter = new FileWriter("src/main/resources/outputs/product-in-range.json");
+            this.gson.toJson(allProductsInRange, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Found exception " + e.getMessage());
+        }
     }
 
     private void fetchProducts() throws FileNotFoundException {
